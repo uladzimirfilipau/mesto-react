@@ -1,16 +1,22 @@
 import React from "react";
 import "../index.css";
+import editAvatar from "../images/edit-avatar.png";
 
-function Main() {
+function Main({
+  handleEditAvatarClick,
+  handleEditProfileClick,
+  handleAddPlaceClick,
+}) {
   return (
     <main className="content">
       {/* PROFILE */}
       <section className="profile">
         <div className="profile__avatar-container">
           <img
-            src="<%=require('/src/images/edit-avatar.png')%>"
+            src={editAvatar}
             alt="edit avatar"
             className="profile__avatar-edit"
+            onClick={handleEditAvatarClick}
           />
           <img src="#" alt="avatar" className="profile__avatar" />
         </div>
@@ -20,6 +26,7 @@ function Main() {
             <button
               aria-label="edit profile"
               className="profile__button-edit"
+              onClick={handleEditProfileClick}
             ></button>
           </div>
           <p className="profile__subtitle">Web-developer</p>
@@ -27,6 +34,7 @@ function Main() {
         <button
           aria-label="add card"
           className="profile__button-add"
+          onClick={handleAddPlaceClick}
         ></button>
       </section>
       {/* ELEMENTS */}
