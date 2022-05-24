@@ -1,5 +1,4 @@
 import React from "react";
-import "../index.css";
 import editAvatar from "../images/edit-avatar.png";
 
 function Main({
