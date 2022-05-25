@@ -1,5 +1,6 @@
 import React from "react";
 import editAvatar from "../images/edit-avatar.png";
+import Card from "./Card";
 
 function Main({
   onEditAvatar,
@@ -8,6 +9,7 @@ function Main({
   userName,
   userDescription,
   userAvatar,
+  cards,
 }) {
   return (
     <main className="content">
@@ -20,11 +22,7 @@ function Main({
             className="profile__avatar-edit"
             onClick={onEditAvatar}
           />
-          <img
-            src={userAvatar}
-            alt="avatar"
-            className="profile__avatar"
-          />
+          <img src={userAvatar} alt="user avatar" className="profile__avatar" />
         </div>
         <div className="profile__info">
           <div className="profile__title-container">
@@ -44,9 +42,13 @@ function Main({
         ></button>
       </section>
       {/* ELEMENTS */}
-      <section className="elements" aria-label="card">
+      <section className="elements" aria-label="cards">
         {/* ADD CARD CONTAINER */}
-        <ul className="elements__list"></ul>
+        <ul className="elements__list">
+          {cards.map((card, i) => (
+            <Card key={i} card={card} />
+          ))}
+        </ul>
       </section>
     </main>
   );
