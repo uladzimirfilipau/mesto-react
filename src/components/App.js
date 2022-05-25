@@ -28,17 +28,29 @@ function App() {
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
-  };
+  }
 
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
-  };
+  }
 
   function closeAllPopups() {
     setIsAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
   }
+
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    api
+      .getInitialCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch(handleError);
+  }, []);
+
   return (
     <>
       <Header />
@@ -49,6 +61,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
+        cards={cards}
       />
       <Footer />
       {/* POPUP-EDIT-AVATAR-FORM */}
@@ -78,27 +91,27 @@ function App() {
         onClose={closeAllPopups}
       >
         <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Введите имя"
-            required
-            minLength="2"
-            maxLength="40"
-            className="popup__input popup__input_type_name"
-          />
-          <span className="popup__error name-error"></span>
-          <input
-            type="text"
-            name="about"
-            id="about"
-            placeholder="Введите профессию"
-            required
-            minLength="2"
-            maxLength="200"
-            className="popup__input popup__input_type_about"
-          />
-          <span className="popup__error about-error"></span>
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Введите имя"
+          required
+          minLength="2"
+          maxLength="40"
+          className="popup__input popup__input_type_name"
+        />
+        <span className="popup__error name-error"></span>
+        <input
+          type="text"
+          name="about"
+          id="about"
+          placeholder="Введите профессию"
+          required
+          minLength="2"
+          maxLength="200"
+          className="popup__input popup__input_type_about"
+        />
+        <span className="popup__error about-error"></span>
       </PopupWithForm>
       {/* POPUP-ADD-CARD-FORM */}
       <PopupWithForm
@@ -109,25 +122,25 @@ function App() {
         onClose={closeAllPopups}
       >
         <input
-            type="text"
-            name="name"
-            id="place-name"
-            placeholder="Название"
-            required
-            minLength="2"
-            maxLength="30"
-            className="popup__input popup__input_type_title"
-          />
-          <span className="popup__error place-name-error"></span>
-          <input
-            type="url"
-            name="link"
-            id="link"
-            placeholder="Ссылка на картинку"
-            required
-            className="popup__input popup__input_type_link"
-          />
-          <span className="popup__error link-error"></span>
+          type="text"
+          name="name"
+          id="place-name"
+          placeholder="Название"
+          required
+          minLength="2"
+          maxLength="30"
+          className="popup__input popup__input_type_title"
+        />
+        <span className="popup__error place-name-error"></span>
+        <input
+          type="url"
+          name="link"
+          id="link"
+          placeholder="Ссылка на картинку"
+          required
+          className="popup__input popup__input_type_link"
+        />
+        <span className="popup__error link-error"></span>
       </PopupWithForm>
       {/* POPUP-DELETE-CARD */}
       <PopupWithForm
@@ -136,8 +149,7 @@ function App() {
         buttonText={"Да"}
         isOpen={false}
         onClose={closeAllPopups}
-      >
-      </PopupWithForm>
+      ></PopupWithForm>
     </>
   );
 }
