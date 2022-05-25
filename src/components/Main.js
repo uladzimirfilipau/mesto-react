@@ -2,9 +2,9 @@ import React from "react";
 import editAvatar from "../images/edit-avatar.png";
 
 function Main({
-  handleEditAvatarClick,
-  handleEditProfileClick,
-  handleAddPlaceClick,
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
   userName,
   userDescription,
   userAvatar,
@@ -18,9 +18,13 @@ function Main({
             src={editAvatar}
             alt="edit avatar"
             className="profile__avatar-edit"
-            onClick={handleEditAvatarClick}
+            onClick={onEditAvatar}
           />
-          <img src={userAvatar} alt="avatar" className="profile__avatar" />
+          <img
+            src={userAvatar}
+            alt="avatar"
+            className="profile__avatar"
+          />
         </div>
         <div className="profile__info">
           <div className="profile__title-container">
@@ -28,7 +32,7 @@ function Main({
             <button
               aria-label="edit profile"
               className="profile__button-edit"
-              onClick={handleEditProfileClick}
+              onClick={onEditProfile}
             ></button>
           </div>
           <p className="profile__subtitle">{userDescription}</p>
@@ -36,7 +40,7 @@ function Main({
         <button
           aria-label="add card"
           className="profile__button-add"
-          onClick={handleAddPlaceClick}
+          onClick={onAddPlace}
         ></button>
       </section>
       {/* ELEMENTS */}
