@@ -10,6 +10,7 @@ function Main({
   userDescription,
   userAvatar,
   cards,
+  onCardClick,
 }) {
   return (
     <main className="content">
@@ -18,17 +19,17 @@ function Main({
         <div className="profile__avatar-container">
           <img
             src={editAvatar}
-            alt="edit avatar"
+            alt="Обновить аватар"
             className="profile__avatar-edit"
             onClick={onEditAvatar}
           />
-          <img src={userAvatar} alt="user avatar" className="profile__avatar" />
+          <img src={userAvatar} alt="Аватар пользователя" className="profile__avatar" />
         </div>
         <div className="profile__info">
           <div className="profile__title-container">
             <h1 className="profile__title">{userName}</h1>
             <button
-              aria-label="edit profile"
+              aria-label="Редактировать профиль"
               className="profile__button-edit"
               onClick={onEditProfile}
             ></button>
@@ -36,17 +37,17 @@ function Main({
           <p className="profile__subtitle">{userDescription}</p>
         </div>
         <button
-          aria-label="add card"
+          aria-label="Добавить карточку"
           className="profile__button-add"
           onClick={onAddPlace}
         ></button>
       </section>
       {/* ELEMENTS */}
-      <section className="elements" aria-label="cards">
+      <section className="elements" aria-label="Карточки">
         {/* ADD CARD CONTAINER */}
         <ul className="elements__list">
-          {cards.map((card, i) => (
-            <Card key={i} card={card} />
+          {cards.map((card) => (
+            <Card key={card._id} card={card} onCardClick={onCardClick} />
           ))}
         </ul>
       </section>

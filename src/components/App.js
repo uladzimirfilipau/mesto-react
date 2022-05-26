@@ -5,6 +5,7 @@ import PopupWithForm from "./PopupWithForm";
 import Footer from "./Footer";
 import api from "../utils/api.js";
 import handleError from "../utils/utils.js";
+import ImagePopup from "./ImagePopup";
 
 function App() {
   const [user, setUser] = useState({});
@@ -34,12 +35,6 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
-  function closeAllPopups() {
-    setIsAvatarPopupOpen(false);
-    setIsEditProfilePopupOpen(false);
-    setIsAddPlacePopupOpen(false);
-  }
-
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -50,6 +45,19 @@ function App() {
       })
       .catch(handleError);
   }, []);
+
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  function handleCardClick(dataCard) {
+    setSelectedCard(dataCard);
+  }
+
+  function closeAllPopups() {
+    setIsAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setSelectedCard(null);
+  }
 
   return (
     <>
@@ -62,8 +70,10 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         cards={cards}
+        onCardClick={handleCardClick}
       />
       <Footer />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       {/* POPUP-EDIT-AVATAR-FORM */}
       <PopupWithForm
         name={"edit-avatar"}
