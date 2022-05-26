@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import PopupWithForm from "./PopupWithForm";
@@ -9,19 +9,22 @@ import ImagePopup from "./ImagePopup";
 
 function App() {
   const [user, setUser] = useState({});
-
-  useEffect(() => {
-    api
-      .getProfileData()
-      .then((data) => {
-        setUser(data);
-      })
-      .catch(handleError);
-  }, []);
-
+  const [cards, setCards] = useState([]);
+  const [selectedCard, setSelectedCard] = useState(null);
   const [isEditAvatarPopupOpen, setIsAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+
+  useEffect(() => {
+    api
+      .getInitialData()
+      .then((data) => {
+        const [profileData, cardsData] = data;
+        setUser(profileData);
+        setCards(cardsData);
+      })
+      .catch(handleError);
+  }, []);
 
   function handleEditAvatarClick() {
     setIsAvatarPopupOpen(true);
@@ -34,19 +37,6 @@ function App() {
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
   }
-
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        setCards(data);
-      })
-      .catch(handleError);
-  }, []);
-
-  const [selectedCard, setSelectedCard] = useState(null);
 
   function handleCardClick(dataCard) {
     setSelectedCard(dataCard);
@@ -78,7 +68,6 @@ function App() {
       <PopupWithForm
         name={"edit-avatar"}
         title={"Обновить аватар"}
-        buttonText={"Сохранить"}
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
       >
@@ -96,7 +85,6 @@ function App() {
       <PopupWithForm
         name={"edit-profile"}
         title={"Редактировать профиль"}
-        buttonText={"Сохранить"}
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
       >

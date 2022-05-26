@@ -1,8 +1,15 @@
 import React from "react";
 
-function PopupWithForm({ name, title, children, buttonText, isOpen, onClose }) {
+function PopupWithForm({
+  name,
+  title,
+  children,
+  buttonText = "Сохранить",
+  isOpen,
+  onClose,
+}) {
   return (
-    <section className={`popup popup_${name} ${isOpen ? "popup_opened" : ""}`}>
+    <section className={`popup popup_${name} ${isOpen && "popup_opened"}`}>
       <form
         action="#"
         name={`form-${name}`}

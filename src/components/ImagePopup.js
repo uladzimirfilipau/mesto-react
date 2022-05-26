@@ -3,7 +3,7 @@ import React from "react";
 function ImagePopup({ card, onClose }) {
   return (
     <section
-      className={`popup popup_image ${card ? "popup_opened" : ""}`}
+      className={`popup popup_image ${card && "popup_opened"}`}
       aria-label="viewing a photo"
     >
       <figure className="popup__figure">
