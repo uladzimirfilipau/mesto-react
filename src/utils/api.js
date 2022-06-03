@@ -66,16 +66,10 @@ class Api {
     }).then(this._getRes);
   }
 
-  addLike(id) {
-    return fetch(`${this._url}cards/${id}/likes`, {
-      method: "PUT",
-      headers: this._headers,
-    }).then(this._getRes);
-  }
-
-  deleteLike(id) {
-    return fetch(`${this._url}cards/${id}/likes`, {
-      method: "DELETE",
+  changeLikeCardStatus(cardId, like) {
+    const methodName = like ? "PUT" : "DELETE";
+    return fetch(`${this._url}cards/${cardId}/likes`, {
+      method: methodName,
       headers: this._headers,
     }).then(this._getRes);
   }
