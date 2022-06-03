@@ -2,7 +2,7 @@ import React from "react";
 import deleteButton from "../images/button-delete.svg";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Card({ card, onCardLike, onCardClick }) {
+function Card({ card, onCardLike, onCardDelete, onCardClick }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const isOwn = card.owner._id === currentUser._id;
@@ -23,6 +23,10 @@ function Card({ card, onCardLike, onCardClick }) {
     onCardLike(card);
   }
 
+  function handleDeleteClick() {
+    onCardDelete(card);
+  }
+
   return (
     <li className="elements__item">
       <figure className="elements__figure">
@@ -30,6 +34,7 @@ function Card({ card, onCardLike, onCardClick }) {
           src={deleteButton}
           alt="Удалить карточку"
           className={cardDeleteButtonClassName}
+          onClick={handleDeleteClick}
         />
         <img
           src={card.link}
