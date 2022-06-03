@@ -9,6 +9,7 @@ function Main({
   onAddPlace,
   cards,
   onCardClick,
+  onCardLike,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -23,7 +24,11 @@ function Main({
             className="profile__avatar-edit"
             onClick={onEditAvatar}
           />
-          <img src={currentUser.avatar} alt="Аватар пользователя" className="profile__avatar" />
+          <img
+            src={currentUser.avatar}
+            alt="Аватар пользователя"
+            className="profile__avatar"
+          />
         </div>
         <div className="profile__info">
           <div className="profile__title-container">
@@ -47,7 +52,12 @@ function Main({
         {/* ADD CARD CONTAINER */}
         <ul className="elements__list">
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={onCardClick} />
+            <Card
+              key={card._id}
+              card={card}
+              onCardLike={onCardLike}
+              onCardClick={onCardClick}
+            />
           ))}
         </ul>
       </section>
