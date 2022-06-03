@@ -1,7 +1,20 @@
 import React from "react";
 import deleteButton from "../images/button-delete.svg";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Card({ card, onCardClick }) {
+  const currentUser = React.useContext(CurrentUserContext);
+
+  const isOwn = card.owner._id === currentUser._id;
+  const cardDeleteButtonClassName = `elements__button-delete ${
+    isOwn ? "elements__button-delete_visible" : ""
+  }`;
+
+  const isLiked = card.likes.some((i) => i._id === currentUser._id);
+  const cardLikeButtonClassName = `elements__item-like ${
+    isLiked ? "elements__item-like_active" : ""
+  }`;
+
   function handleCardClick() {
     onCardClick(card);
   }
@@ -12,7 +25,7 @@ function Card({ card, onCardClick }) {
         <img
           src={deleteButton}
           alt="Удалить карточку"
-          className="elements__button-delete"
+          className={cardDeleteButtonClassName}
         />
         <img
           src={card.link}
@@ -23,7 +36,7 @@ function Card({ card, onCardClick }) {
         <figcaption className="elements__figure-caption">
           <h2 className="elements__item-title">{card.name}</h2>
           <div className="elements__like-container">
-            <button className="elements__item-like"></button>
+            <button className={cardLikeButtonClassName}></button>
             <p className="elements__like-number">{card.likes.length}</p>
           </div>
         </figcaption>
