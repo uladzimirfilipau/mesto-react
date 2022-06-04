@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import api from "../utils/api.js";
 import handleError from "../utils/utils.js";
 import ImagePopup from "./ImagePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 import EditProfilePopup from "./EditProfilePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -68,6 +69,16 @@ function App() {
       .catch(handleError);
   }
 
+  function handleUpdateAvatar(data) {
+    api
+      .editProfileAvatar(data)
+      .then((newData) => {
+        setCurrentUser(newData);
+        closeAllPopups();
+      })
+      .catch(handleError);
+  }
+
   function closeAllPopups() {
     setIsAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -94,6 +105,7 @@ function App() {
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
         />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
