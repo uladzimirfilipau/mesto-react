@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import api from "../utils/api.js";
 import handleError from "../utils/utils.js";
 import ImagePopup from "./ImagePopup";
+import EditProfilePopup from "./EditProfilePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
@@ -57,6 +58,14 @@ function App() {
     });
   }
 
+  function handleUpdateUser(data) {
+    api.editProfileInfo(data)
+    .then((newData) => {
+      setCurrentUser(newData)
+      closeAllPopups();
+    }).catch(handleError);
+  }
+
   function closeAllPopups() {
     setIsAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -96,36 +105,13 @@ function App() {
           />
           <span className="popup__error avatar-error"></span>
         </PopupWithForm>
-        {/* POPUP-EDIT-PROFILE-FORM */}
-        <PopupWithForm
-          name={"edit-profile"}
-          title={"Редактировать профиль"}
+
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-        >
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Введите имя"
-            required
-            minLength="2"
-            maxLength="40"
-            className="popup__input popup__input_type_name"
-          />
-          <span className="popup__error name-error"></span>
-          <input
-            type="text"
-            name="about"
-            id="about"
-            placeholder="Введите профессию"
-            required
-            minLength="2"
-            maxLength="200"
-            className="popup__input popup__input_type_about"
-          />
-          <span className="popup__error about-error"></span>
-        </PopupWithForm>
+          onUpdateUser={handleUpdateUser}
+        />
+
         {/* POPUP-ADD-CARD-FORM */}
         <PopupWithForm
           name={"add-card"}

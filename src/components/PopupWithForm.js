@@ -7,6 +7,7 @@ function PopupWithForm({
   buttonText = "Сохранить",
   isOpen,
   onClose,
+  onSubmit
 }) {
   return (
     <section className={`popup popup_${name} ${isOpen && "popup_opened"}`}>
@@ -15,6 +16,7 @@ function PopupWithForm({
         name={`form-${name}`}
         className={`popup__form popup__form_${name}`}
         noValidate
+        onSubmit={onSubmit}
       >
         <button
           type="button"
