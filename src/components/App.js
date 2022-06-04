@@ -59,11 +59,13 @@ function App() {
   }
 
   function handleUpdateUser(data) {
-    api.editProfileInfo(data)
-    .then((newData) => {
-      setCurrentUser(newData)
-      closeAllPopups();
-    }).catch(handleError);
+    api
+      .editProfileInfo(data)
+      .then((newData) => {
+        setCurrentUser(newData);
+        closeAllPopups();
+      })
+      .catch(handleError);
   }
 
   function closeAllPopups() {
@@ -87,25 +89,12 @@ function App() {
           onCardDelete={handleCardDelete}
         />
         <Footer />
+
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-        {/* POPUP-EDIT-AVATAR-FORM */}
-        <PopupWithForm
-          name={"edit-avatar"}
-          title={"Обновить аватар"}
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
-        >
-          <input
-            type="url"
-            name="avatar"
-            id="avatar"
-            placeholder="Ссылка на картинку"
-            required
-            className="popup__input popup__input_type_avatar"
-          />
-          <span className="popup__error avatar-error"></span>
-        </PopupWithForm>
-
+        />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
