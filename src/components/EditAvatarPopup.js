@@ -2,19 +2,19 @@ import { useRef, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
-  const avatar = useRef();
+  const avatarRef = useRef();
+
+  useEffect(() => {
+    avatarRef.current.value = "";
+  }, [isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
 
     onUpdateAvatar({
-      avatar: avatar.current.value,
+      avatar: avatarRef.current.value,
     });
   }
-
-  useEffect(() => {
-    avatar.current.value = "";
-  }, [isOpen]);
 
   return (
     <PopupWithForm
@@ -31,7 +31,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
         placeholder="Ссылка на картинку"
         required
         className="popup__input popup__input_type_avatar"
-        ref={avatar}
+        ref={avatarRef}
       />
       <span className="popup__error avatar-error"></span>
     </PopupWithForm>
