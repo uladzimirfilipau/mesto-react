@@ -80,6 +80,16 @@ function App() {
       .catch(handleError);
   }
 
+  function handleAddPlaceSubmit(data) {
+    api
+      .addCard(data)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch(handleError);
+  }
+
   function closeAllPopups() {
     setIsAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -101,7 +111,7 @@ function App() {
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
         />
-        
+
         <Footer />
 
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
@@ -119,8 +129,9 @@ function App() {
         />
 
         <AddPlacePopup
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}
         />
         {/* POPUP-DELETE-CARD */}
         <PopupWithForm
