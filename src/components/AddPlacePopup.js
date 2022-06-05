@@ -1,13 +1,42 @@
 import PopupWithForm from "./PopupWithForm";
+import { useState, useEffect } from "react";
 
-function AddPlacePopup({}) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+  const [name, setName] = useState("");
+  const [link, setLink] = useState("");
+
+  useEffect(() => {
+    if (isOpen) {
+      setName("");
+      setLink("");
+    }
+  }, [isOpen]);
+
+  function handleNameChange(e) {
+    setName(e.target.value);
+  }
+
+  function handleLinkChange(e) {
+    setLink(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    onAddPlace({
+      name,
+      link,
+    });
+  }
+
   return (
     <PopupWithForm
       name={"add-card"}
       title={"Новое место"}
       buttonText={"Создать"}
-      isOpen={isAddPlacePopupOpen}
-      onClose={closeAllPopups}
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
     >
       <input
         type="text"
@@ -18,6 +47,8 @@ function AddPlacePopup({}) {
         minLength="2"
         maxLength="30"
         className="popup__input popup__input_type_title"
+        value={name}
+        onChange={handleNameChange}
       />
       <span className="popup__error place-name-error"></span>
       <input
@@ -27,6 +58,8 @@ function AddPlacePopup({}) {
         placeholder="Ссылка на картинку"
         required
         className="popup__input popup__input_type_link"
+        value={link}
+        onChange={handleLinkChange}
       />
       <span className="popup__error link-error"></span>
     </PopupWithForm>
