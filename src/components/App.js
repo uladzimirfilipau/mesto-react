@@ -8,6 +8,7 @@ import handleError from "../utils/utils.js";
 import ImagePopup from "./ImagePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import EditProfilePopup from "./EditProfilePopup";
+import AddPlacePopup from "./AddPlacePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
@@ -90,6 +91,7 @@ function App() {
     <>
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
+
         <Main
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}
@@ -99,49 +101,27 @@ function App() {
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
         />
+        
         <Footer />
 
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
+
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
         />
 
-        {/* POPUP-ADD-CARD-FORM */}
-        <PopupWithForm
-          name={"add-card"}
-          title={"Новое место"}
-          buttonText={"Создать"}
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-        >
-          <input
-            type="text"
-            name="name"
-            id="place-name"
-            placeholder="Название"
-            required
-            minLength="2"
-            maxLength="30"
-            className="popup__input popup__input_type_title"
-          />
-          <span className="popup__error place-name-error"></span>
-          <input
-            type="url"
-            name="link"
-            id="link"
-            placeholder="Ссылка на картинку"
-            required
-            className="popup__input popup__input_type_link"
-          />
-          <span className="popup__error link-error"></span>
-        </PopupWithForm>
+        <AddPlacePopup
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
+        />
         {/* POPUP-DELETE-CARD */}
         <PopupWithForm
           name={"delete-card"}
