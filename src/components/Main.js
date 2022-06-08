@@ -10,7 +10,7 @@ function Main({
   cards,
   onCardClick,
   onCardLike,
-  onCardDelete
+  onCardDelete,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -25,11 +25,7 @@ function Main({
             className="profile__avatar-edit"
             onClick={onEditAvatar}
           />
-          <img
-            src={currentUser.avatar}
-            alt="Аватар пользователя"
-            className="profile__avatar"
-          />
+          <img src={currentUser.avatar} alt="Аватар пользователя" className="profile__avatar" />
         </div>
         <div className="profile__info">
           <div className="profile__title-container">
@@ -38,7 +34,7 @@ function Main({
               aria-label="Редактировать профиль"
               className="profile__button-edit"
               onClick={onEditProfile}
-            ></button>
+            />
           </div>
           <p className="profile__subtitle">{currentUser.about}</p>
         </div>
@@ -46,7 +42,7 @@ function Main({
           aria-label="Добавить карточку"
           className="profile__button-add"
           onClick={onAddPlace}
-        ></button>
+        />
       </section>
       {/* ELEMENTS */}
       <section className="elements" aria-label="Карточки">

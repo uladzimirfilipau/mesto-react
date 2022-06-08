@@ -146,7 +146,7 @@ function App() {
           buttonText={"Да"}
           isOpen={false}
           onClose={closeAllPopups}
-        ></PopupWithForm>
+        />
       </CurrentUserContext.Provider>
     </>
   );

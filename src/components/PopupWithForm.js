@@ -7,7 +7,7 @@ function PopupWithForm({
   buttonText = "Сохранить",
   isOpen,
   onClose,
-  onSubmit
+  onSubmit,
 }) {
   return (
     <section className={`popup popup_${name} ${isOpen && "popup_opened"}`}>
@@ -23,7 +23,7 @@ function PopupWithForm({
           aria-label="Закрыть"
           className="popup__button-close"
           onClick={onClose}
-        ></button>
+        />
         <div className="popup__content">
           <h2 className="popup__title">{title}</h2>
           {children}

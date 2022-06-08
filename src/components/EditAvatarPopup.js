@@ -5,7 +5,9 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const avatarRef = useRef();
 
   useEffect(() => {
-    avatarRef.current.value = "";
+    if (isOpen) {
+      avatarRef.current.value = "";
+    }
   }, [isOpen]);
 
   function handleSubmit(e) {
@@ -33,7 +35,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
         className="popup__input popup__input_type_avatar"
         ref={avatarRef}
       />
-      <span className="popup__error avatar-error"></span>
+      <span className="popup__error avatar-error"/>
     </PopupWithForm>
   );
 }
